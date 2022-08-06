@@ -25,9 +25,9 @@ def main():
                     continue
 
                 if kind == 'HIV-1':
-                    out_path = 'data/one_file/hiv1'
+                    out_path = 'data/one_file/hiv1.fasta'
                 elif kind == 'HIV-2':
-                    out_path = 'data/one_file/hiv2'
+                    out_path = 'data/one_file/hiv2.fasta'
                 else:
                     continue
 
