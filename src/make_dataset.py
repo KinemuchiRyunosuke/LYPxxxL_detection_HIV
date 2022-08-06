@@ -22,14 +22,13 @@ args = parser.parse_args()
 
 
 def main():
-    json_path = 'references/PTAP_data.json'
-    with open(json_path, 'r') as f:
-        json_data = json.load(f)
+    motif_data_path = 'references/LYPXL_data.json'
+    with open(motif_data_path, 'r') as f:
+        motif_data = json.load(f)
 
-    for data in json_data:
-        virusname = data['virus'].replace(' ', '_')
-
-        fasta_path = os.path.join(args.fasta_dir, f'{virusname}.fasta')
+    for data in motif_data:
+        virusname = motif_data['virus'].replace(' ', '_')
+        fasta_path = os.path.join('data/input/', f'{virusname}.fasta')
 
         records = extract(fasta_path)
         dataset_maker = Dataset(
@@ -37,7 +36,7 @@ def main():
                 idx=data['start_index'],
                 length=args.length,
                 proteins=data['proteins'],
-                SLiM_proteins=data['SLiM_proteins'],
+                SLiM_protein=data['SLiM_protein'],
                 neighbor=data['neighbor'],
                 replacement_tolerance=data['replacement_tolerance'],
                 threshold=len(data['SLiM']),
@@ -45,10 +44,17 @@ def main():
 
         x, y = dataset_maker.make_dataset(records, dict=False)
 
-        out_path = os.path.join(args.out_dir, f'{virusname}.pickle')
-        with open(out_path, 'wb') as f:
-            pickle.dump(x, f)
-            pickle.dump(y, f)
+        y_positive = (y == 1).astype(int)
+        x_positive = x[y_positive]
+        for seq in x_positive:
+            if not 'LYP' in seq:
+                print(seq)
+
+        # out_path = os.path.join(args.out_dir, f'{virusname}.pickle')
+        # with open(out_path, 'wb') as f:
+        #     pickle.dump(x, f)
+        #     pickle.dump(y, f)
+
 
 if __name__ == '__main__':
     main()

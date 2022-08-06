@@ -9,7 +9,7 @@ from ..utils import determine_protein_name
 class Dataset:
 
     def __init__(self, SLiM, idx, length=10, proteins=None, neighbor=None,
-                 SLiM_proteins=None, remove_X=True, replacement_tolerance=1,
+                 SLiM_protein=None, remove_X=True, replacement_tolerance=1,
                  threshold=None, random_split=False, n_gram=False):
         self.SLiM = SLiM            # str: アノテーションするSLiM配列
         self.idx = idx              # int: SLiMの開始位置
@@ -17,16 +17,14 @@ class Dataset:
 
         self.neighbor = neighbor    # int: SLiMを探索する範囲．
                                     # 	SLiMの位置±neighborの範囲で
-                                    #   LiMを探索する．
+                                    #   SLiMを探索する．
                                     #   Noneの場合は範囲を無視して探索する．
 
-        self.SLiM_proteins = SLiM_proteins   # [str]: SLiMを持つレコードの
-                                             #        descriptionに
-                                             #        含まれる文字列
+        self.SLiM_protein = SLiM_protein     # str: SLiMを保有するタンパク質名
 
-        self.proteins = proteins
+        self.proteins = proteins    # dict: ウイルスのタンパク質の種類をまとめた辞書
 
-        self.remove_X = remove_X    # bool: 未知アミノ酸Xが含まれる
+        self.remove_X = remove_X    # bool: 未知のアミノ酸Xが含まれる
                                     #       配列を無視する．
 
         # int: 何個までアミノ酸置換を許容するか
@@ -67,7 +65,7 @@ class Dataset:
             datasets = self._make_dataset_dict(records)
 
             for key in datasets.keys():
-                has_SLiM = key in self.SLiM_proteins
+                has_SLiM = key in self.SLiM_protein
 
                 if has_SLiM:
                     finish = True
@@ -113,11 +111,9 @@ class Dataset:
                 print(record.description)
                 continue
 
-            if self.SLiM_proteins is not None:
+            if self.SLiM_protein is not None:
 
-                has_SLiM = protein_name in self.SLiM_proteins
-
-                # keywordを持っていない => SLiMを持っていない
+                has_SLiM = (protein_name == self.SLiM_protein)
                 if not has_SLiM:
                     label_list = [0] * len(record.seq)
                 else:
