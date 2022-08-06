@@ -10,7 +10,7 @@ INPUT_HIV2 = data/input/hiv1.fasta
 DATASET_HIV1 = data/processed/hiv1_threshold$(cd-hit_threshold).pickle
 DATASET_HIV2 = data/processed/hiv2.pickle
 
-all: DATASET_HIV1 DATASET_HIV2
+all: $(DATASET_HIV1) $(DATASET_HIV2)
 
 $(RAW_DATASET):
 	python3 src/get_dataset.py
