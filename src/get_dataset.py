@@ -11,9 +11,6 @@ df = pd.read_table(file_path, header=2, names=columns, index_col=False,
 df_HIV = df[df['Taxonomy name'].str.contains('HIV') |
             df['Taxonomy name'].str.contains('Human immunodeficiency virus')]
 
-print(df_HIV['Neighbor'].values)
-print(type(df_HIV['Neighbor'].values))
-
 for id in df_HIV['Neighbor'].values:
     filename = f'data/raw/{id}.fasta'
     url = f'http://getentry.ddbj.nig.ac.jp/getentry/na/{id}'\

@@ -11,10 +11,6 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument('length', help="Amino acids are fragmentated by this length.",
                     type=int)
-parser.add_argument('fasta_dir', help="Path to FASTA files.",
-                    type=str)
-parser.add_argument('out_dir', help="Path to output files.",
-                    type=str)
 parser.add_argument('--n_gram', help="If True, n_gram dataset are generated.",
                     type=bool, default=True)
 
@@ -22,7 +18,7 @@ args = parser.parse_args()
 
 
 def main():
-    motif_data_path = 'references/LYPXL_data.json'
+    motif_data_path = 'references/motif_data.json'
     with open(motif_data_path, 'r') as f:
         motif_data = json.load(f)
 
@@ -50,7 +46,7 @@ def main():
             if not 'LYP' in seq:
                 print(seq)
 
-        # out_path = os.path.join(args.out_dir, f'{virusname}.pickle')
+        # out_path = os.path.join('data/processed/', f'{virusname}.pickle')
         # with open(out_path, 'wb') as f:
         #     pickle.dump(x, f)
         #     pickle.dump(y, f)
