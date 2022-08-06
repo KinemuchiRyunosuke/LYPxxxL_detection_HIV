@@ -2,7 +2,7 @@ cd-hit_threshold = 0.80
 length = 26
 n_gram = True
 
-RAW_DATASET = data/raw/finish
+RAW_DATASET = data/raw/.finish
 ONE_FASTA_HIV1 = data/one_fasta/hiv1.fasta
 ONE_FASTA_HIV2 = data/one_fasta/hiv2.fasta
 INPUT_HIV1 = data/input/hiv1_threshold$(cd-hit_threshold).fasta

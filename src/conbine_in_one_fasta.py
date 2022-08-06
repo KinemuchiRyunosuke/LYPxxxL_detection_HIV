@@ -55,14 +55,18 @@ def determine_kind(desc):
     return kind
 
 def is_whole_genome(desc, kind):
-    json_path = 'references/HIV_dict.json'
+    json_path = 'references/motif_data.json'
     with open(json_path, 'r') as f:
-        HIV_dict = json.load(f)
+        motif_data = json.load(f)
+
+    for data in motif_data:
+        if data['virus'] == kind:
+            proteins_dict = data['proteins']
 
     whole_genome = True
-    for key, vals in HIV_dict[kind].items():
-        for val in vals:
-            if val in desc:
+    for key, protein in proteins_dict.items():
+        for keyword in protein:
+            if keyword in desc:
                 whole_genome = False
 
     return whole_genome
