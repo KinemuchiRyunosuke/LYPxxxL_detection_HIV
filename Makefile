@@ -5,9 +5,9 @@ n_gram = True
 RAW_DATASET = data/raw/.finish
 ONE_FASTA_HIV1 = data/one_fasta/hiv1.fasta
 ONE_FASTA_HIV2 = data/one_fasta/hiv2.fasta
-INPUT_HIV1 = data/input/hiv1_threshold$(cd-hit_threshold).fasta
-INPUT_HIV2 = data/input/hiv1.fasta
-DATASET_HIV1 = data/processed/hiv1_threshold$(cd-hit_threshold).pickle
+INPUT_HIV1 = data/input/hiv1.fasta
+INPUT_HIV2 = data/input/hiv2.fasta
+DATASET_HIV1 = data/processed/hiv1.pickle
 DATASET_HIV2 = data/processed/hiv2.pickle
 
 all: $(DATASET_HIV1) $(DATASET_HIV2)
